@@ -10,7 +10,7 @@ namespace EdisonDrone {
             Server();
 
             bool isRunning();
-            bool run();
+            int run();
 
         private:
             AttitudeUpdater m_attitude_updater;

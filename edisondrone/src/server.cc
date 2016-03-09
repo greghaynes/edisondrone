@@ -3,18 +3,19 @@
 using namespace EdisonDrone;
 
 Server::Server()
-    : m_attitude_updater() {
+    : m_attitude_updater()
+    , m_is_running(false) {
 }
 
 bool Server::isRunning() {
     return m_is_running;
 }
 
-bool Server::run() {
+int Server::run() {
     if(isRunning())
-        return false;
+        return 1;
 
-    m_attitude_updater.run();
-
-    return true;
+    m_attitude_updater.start();
+    m_is_running = true;
+    return 0;
 }

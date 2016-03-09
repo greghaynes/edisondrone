@@ -1,11 +1,6 @@
-#include "attitude_updater.h"
-
-void run() {
-    EdisonDrone::AttitudeUpdater au;
-    au.run();
-}
+#include "server.h"
 
 int main(int argc, char **argv) {
-    run();
-    return 0;
+    EdisonDrone::Server s;
+    return s.run();
 }

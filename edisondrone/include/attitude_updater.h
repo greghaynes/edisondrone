@@ -9,6 +9,7 @@ namespace EdisonDrone {
         public:
             AttitudeUpdater();
 
+        private:
             void run();
     };
 
