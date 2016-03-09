@@ -1,10 +1,17 @@
 #include "attitude_updater.h"
 
+#include <functional>
+
 using namespace EdisonDrone;
 
-AttitudeUpdater::AttitudeUpdater()
-    : Thread(std::bind(&AttitudeUpdater::run, this)) {
+AttitudeUpdater::AttitudeUpdater(unsigned int gyro_update_ms)
+    : m_gyro_updater(gyro_update_ms,
+                     std::bind(&AttitudeUpdater::updateGyros, this)) {
 }
 
-void AttitudeUpdater::run() {
+void AttitudeUpdater::start() {
+    m_gyro_updater.start();
+}
+
+void AttitudeUpdater::updateGyros() {
 }

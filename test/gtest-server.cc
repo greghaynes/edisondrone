@@ -6,7 +6,7 @@ class ServerTest : public ::testing::Test {
 };
 
 TEST_F(ServerTest, start) {
-    EdisonDrone::Server s;
+    EdisonDrone::Server s(10);
     int ret = s.run();
 
     EXPECT_EQ(ret, 0);

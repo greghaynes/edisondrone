@@ -4,7 +4,7 @@
 
 using namespace EdisonDrone;
 
-PeriodicThread::PeriodicThread(int sleep_ms,
+PeriodicThread::PeriodicThread(unsigned int sleep_ms,
                                std::function<void()> target)
     : Thread(std::bind(&PeriodicThread::run, this))
     , m_sleep_ms(sleep_ms)

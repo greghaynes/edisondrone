@@ -7,7 +7,7 @@ namespace EdisonDrone {
 
     class Server {
         public:
-            Server();
+            Server(unsigned int gyro_update_ms);
 
             bool isRunning();
             int run();

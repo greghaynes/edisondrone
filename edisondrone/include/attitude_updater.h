@@ -1,16 +1,20 @@
 #ifndef ATTITUDE_UPDATER_H
 #define ATTITUDE_UPDATER_H
 
-#include "thread.h"
+#include "periodic-thread.h"
 
 namespace EdisonDrone {
 
-    class AttitudeUpdater : public Thread {
+    class AttitudeUpdater {
         public:
-            AttitudeUpdater();
+            AttitudeUpdater(unsigned int gyro_update_ms);
+
+            void start();
 
         private:
-            void run();
+            void updateGyros();
+
+            PeriodicThread m_gyro_updater;
     };
 
 }
