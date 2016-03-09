@@ -4,6 +4,16 @@ compiler:
   - gcc
   - clang
 
+before_install:
+  - sudo apt-get -qq update
+  - sudo apt-get install -y libgtest-dev
+  - pushd /usr/src/gtest
+  - sudo cmake .
+  - sudo make
+  - sudo ln -s libgtest.a /usr/local/lib/
+  - sudo ln -s libgtest_main.a /usr/local/lib/
+  - popd
+
 before_script:
   - mkdir build
   - cd build
