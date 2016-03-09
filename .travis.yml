@@ -12,7 +12,7 @@ before_install:
 install:
   - if [ "$CXX" == "g++" ]; then sudo apt-get install -qq g++-4.8; fi
   - if [ "$CXX" == "g++" ]; then export CXX="g++-4.8"; export CC=gcc-4.8; fi
-  - if [ "$CXX" == "clang++" ]; then sudo apt-get install --allow-unauthenticated -qq clang-3.4; fi
+  - if [ "$CXX" == "clang++" ]; then sudo apt-get install --allow-unauthenticated -qq clang-3.4 libc++1; fi
   - if [ "$CXX" == "clang++" ]; then export CXX="clang++-3.4"; export CC=clang-3.4; fi
   - sudo apt-get install -y libgtest-dev
   - pushd /usr/src/gtest
