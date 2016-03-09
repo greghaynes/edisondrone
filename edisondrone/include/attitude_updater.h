@@ -8,8 +8,10 @@ namespace EdisonDrone {
     class AttitudeUpdater {
         public:
             AttitudeUpdater(unsigned int gyro_update_ms);
+            ~AttitudeUpdater();
 
             void start();
+            void stop();
 
         private:
             void updateGyros();

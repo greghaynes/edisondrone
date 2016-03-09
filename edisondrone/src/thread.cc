@@ -19,3 +19,7 @@ void Thread::start() {
 void Thread::join() {
     m_thread.join();
 }
+
+bool Thread::joinable() {
+    return m_thread.joinable();
+}

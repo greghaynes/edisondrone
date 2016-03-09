@@ -13,6 +13,7 @@ namespace EdisonDrone {
 
             void start();
             void join();
+            bool joinable();
 
         private:
             std::thread m_thread;
