@@ -15,3 +15,7 @@ Thread::~Thread() {
 void Thread::start() {
     m_thread = std::thread(m_target);
 }
+
+void Thread::join() {
+    m_thread.join();
+}

@@ -12,6 +12,7 @@ namespace EdisonDrone {
             ~Thread();
 
             void start();
+            void join();
 
         private:
             std::thread m_thread;

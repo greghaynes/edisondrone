@@ -19,8 +19,14 @@ if(test)
     include_directories(${GTEST_INCLUDE_DIRS})
 
     file(GLOB TEST_SRC_FILES ${PROJECT_SOURCE_DIR}/test/*.cc)
-    add_executable(edisondrone-test ${TEST_SRC_FILES})
-    target_link_libraries(edisondrone-test ${GTEST_LIBRARIES} ${GTEST_MAIN_LIBRARIES} pthread)
+    set(TEST_SRC_FILES ${TEST_SRC_FILES} ${SRC_FILES})
+    list(REMOVE_ITEM TEST_SRC_FILES
+         ${PROJECT_SOURCE_DIR}/edisondrone/src/main.cc)
+    add_executable(edisondrone-test ${TEST_SRC_FILES} )
+    target_link_libraries(edisondrone-test
+                          ${GTEST_LIBRARIES}
+                          ${GTEST_MAIN_LIBRARIES}
+                          pthread)
 
     add_test(AllEdisondroneTests edisondrone-test)
 endif()
