@@ -6,6 +6,10 @@ find_package(Threads REQUIRED)
 
 if(CMAKE_COMPILER_IS_GNUCXX)
     add_definitions(-Wall -ansi -Wno-deprecated -pthread -std=c++11)
+elseif(CMAKE_CXX_COMPILER_ID MATCHES "Clang")
+    add_definitions(-std=c++11)
+else()
+    message(FATAL_ERROR "Unknown CXX compiler")
 endif()
 
 include_directories(${PROJECT_SOURCE_DIR}/edisondrone/include)
