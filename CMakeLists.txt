@@ -2,20 +2,24 @@ cmake_minimum_required(VERSION 2.8.7)
 set(PROJECT_NAME_STR edisondrone)
 project(${PROJECT_NAME_STR} C CXX)
 
-find_package(Threads REQUIRED)
+add_subdirectory(ext/mraa)
 
 if(CMAKE_COMPILER_IS_GNUCXX)
-    add_definitions(-Wall -ansi -Wno-deprecated -pthread -std=c++11)
+    set(CMAKE_CXX_FLAGS -Wall -ansi -Wno-deprecated -pthread -std=c++11)
 elseif(CMAKE_CXX_COMPILER_ID MATCHES "Clang")
-    add_definitions(-std=c++11)
+    set(CMAKE_CXX_FLAGS -std=c++11)
 else()
     message(FATAL_ERROR "Unknown CXX compiler")
 endif()
+
+
+find_package(Threads REQUIRED)
 
 include_directories(${PROJECT_SOURCE_DIR}/edisondrone/include)
 
 file(GLOB SRC_FILES ${PROJECT_SOURCE_DIR}/edisondrone/src/*.cc)
 add_executable(edisondrone-server ${SRC_FILES})
+target_link_libraries(edisondrone-server mraa)
 
 if(test)
     enable_testing()
