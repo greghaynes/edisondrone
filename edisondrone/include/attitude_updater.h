@@ -1,6 +1,8 @@
 #ifndef ATTITUDE_UPDATER_H
 #define ATTITUDE_UPDATER_H
 
+#include "SFE_LSM9DS0.h"
+
 #include "periodic-thread.h"
 
 namespace EdisonDrone {
@@ -17,6 +19,7 @@ namespace EdisonDrone {
             void updateGyros();
 
             PeriodicThread m_gyro_updater;
+            LSM9DS0 m_9dof;
     };
 
 }
