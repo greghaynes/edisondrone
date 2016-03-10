@@ -2,6 +2,11 @@ cmake_minimum_required(VERSION 2.8.7)
 set(PROJECT_NAME_STR edisondrone)
 project(${PROJECT_NAME_STR} C CXX)
 
+set(BUILDSWIG OFF)
+set(BUILDSWIGPYTHON OFF)
+set(BUILDSWIGNODE OFF)
+set(ENABLEEXAMPLES OFF)
+set(BUILDTESTS OFF)
 add_subdirectory(ext/mraa)
 
 if(CMAKE_COMPILER_IS_GNUCXX)
