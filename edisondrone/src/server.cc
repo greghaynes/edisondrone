@@ -2,8 +2,8 @@
 
 using namespace EdisonDrone;
 
-Server::Server(unsigned int gyro_update_ms)
-    : m_attitude_updater(gyro_update_ms)
+Server::Server(unsigned int imu_update_ms)
+    : m_attitude_updater(imu_update_ms)
     , m_is_running(false) {
 }
 
