@@ -20,10 +20,14 @@ endif()
 
 find_package(Threads REQUIRED)
 
-include_directories(${PROJECT_SOURCE_DIR}/edisondrone/include)
+include_directories(${PROJECT_SOURCE_DIR}/edisondrone/include
+                    ${PROJECT_SOURCE_DIR}/ext/mraa/api
+                    ${PROJECT_SOURCE_DIR}/ext/sparkfun_9dof)
 
 file(GLOB SRC_FILES ${PROJECT_SOURCE_DIR}/edisondrone/src/*.cc)
-add_executable(edisondrone-server ${SRC_FILES})
+add_executable(edisondrone-server
+               ${SRC_FILES}
+               ${PROJECT_SOURCE_DIR}/ext/sparkfun_9dof/SFE_LSM9DS0.cpp)
 target_link_libraries(edisondrone-server mraa)
 
 if(test)
