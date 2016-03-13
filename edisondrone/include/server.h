@@ -4,12 +4,14 @@
 #include <mutex>
 
 #include "attitude_updater.h"
+#include "imu.h"
 
 namespace EdisonDrone {
 
     class Server {
         public:
-            Server(unsigned int imu_update_ms);
+            Server(unsigned int imu_update_ms,
+                   IMU &imu);
 
             bool isRunning();
             int start();

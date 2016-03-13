@@ -1,11 +1,14 @@
 #ifndef IMU_H
 #define IMU_H
 
+#include <cstdint>
+
 namespace EdisonDrone {
 
     class IMU {
 
         public:
+            virtual ~IMU() {}
             virtual void start() = 0;
             virtual void readGyro() = 0;
             virtual void readAccel() = 0;
