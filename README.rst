@@ -39,7 +39,8 @@ then outputs data files which can be graphed using a tool like gnuplot.
 An example usage:
 
 .. code-block:: bash
+
     ./edisondrone-simulator > simulator.dat
-    gnuplot < simulator.dat > graph.png
+    gnuplot < simulator/simulator.gnuplot > graph.png
 
 You can then view graph.png in any image viewing tool.
