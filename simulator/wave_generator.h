@@ -30,4 +30,16 @@ class SinWaveGenerator : public WaveGenerator {
 
 };
 
+class CosWaveGenerator : public WaveGenerator {
+
+    public:
+        CosWaveGenerator(double step=.01,
+                         double start=0,
+                         double amplitude=1);
+
+    private:
+        double m_amplitude;
+
+};
+
 #endif

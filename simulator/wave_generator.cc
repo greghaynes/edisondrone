@@ -19,3 +19,8 @@ SinWaveGenerator::SinWaveGenerator(double step, double start, double amplitude)
     : WaveGenerator(sin, step, start)
     , m_amplitude(amplitude) {
 }
+
+CosWaveGenerator::CosWaveGenerator(double step, double start, double amplitude)
+    : WaveGenerator(cos, step, start)
+    , m_amplitude(amplitude) {
+}

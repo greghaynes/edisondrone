@@ -10,7 +10,8 @@ int main(int argc, char **argv) {
     stateestimation::AttitudeEstimator estimator;
 
     SinWaveGenerator gyro_gen;
-    SinWaveGenerator accel_gen;
+    SinWaveGenerator accel_y_gen;
+    CosWaveGenerator accel_z_gen;
 
     double g_x = 0;
     double g_y = 0;
@@ -25,6 +26,9 @@ int main(int argc, char **argv) {
 
     for(int i=0;i < 2000;++i) {
         g_x = gyro_gen();
+        a_y = accel_y_gen() * .5;
+        a_z = accel_z_gen() * .5;
+        
         estimator.update(.01, g_x, g_y, g_z, a_x, a_y, a_z, 0, 0, 0);
 
         roll = estimator.eulerRoll();
