@@ -28,16 +28,17 @@ set(SRC_FILES
     ${SRC_FILES}
     ${PROJECT_SOURCE_DIR}/ext/sparkfun_9dof/SFE_LSM9DS0.cpp)
 
+add_library(edisondrone STATIC ${SRC_FILES})
+target_link_libraries(edisondrone mraa)
+
 add_executable(edisondrone-server
-               ${SRC_FILES}
                ${PROJECT_SOURCE_DIR}/edisondrone/src/main.cc)
-target_link_libraries(edisondrone-server mraa)
+target_link_libraries(edisondrone-server mraa edisondrone)
 
 file(GLOB SIMULATOR_SRC_FILES ${PROJECT_SOURCE_DIR}/simulator/*.cc)
 add_executable(edisondrone-simulator
-               ${SRC_FILES}
                ${SIMULATOR_SRC_FILES})
-target_link_libraries(edisondrone-simulator mraa)
+target_link_libraries(edisondrone-simulator edisondrone)
 
 if(test)
     enable_testing()
@@ -47,13 +48,12 @@ if(test)
     file(GLOB TEST_SRC_FILES ${PROJECT_SOURCE_DIR}/test/*.cc)
     set(TEST_SRC_FILES
         ${TEST_SRC_FILES}
-        ${SRC_FILES}
         ${PROJECT_SOURCE_DIR}/ext/sparkfun_9dof/SFE_LSM9DS0.cpp)
     add_executable(edisondrone-test ${TEST_SRC_FILES})
     target_link_libraries(edisondrone-test
                           ${GTEST_LIBRARIES}
                           ${GTEST_MAIN_LIBRARIES}
-                          mraa
+                          edisondrone
                           pthread)
 
     add_test(AllEdisondroneTests edisondrone-test)
