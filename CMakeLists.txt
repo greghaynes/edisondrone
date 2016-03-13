@@ -23,10 +23,21 @@ include_directories(${PROJECT_SOURCE_DIR}/edisondrone/include
                     ${PROJECT_SOURCE_DIR}/ext/sparkfun_9dof)
 
 file(GLOB SRC_FILES ${PROJECT_SOURCE_DIR}/edisondrone/src/*.cc)
+list(REMOVE_ITEM SRC_FILES ${PROJECT_SOURCE_DIR}/edisondrone/src/main.cc)
+set(SRC_FILES
+    ${SRC_FILES}
+    ${PROJECT_SOURCE_DIR}/ext/sparkfun_9dof/SFE_LSM9DS0.cpp)
+
 add_executable(edisondrone-server
                ${SRC_FILES}
-               ${PROJECT_SOURCE_DIR}/ext/sparkfun_9dof/SFE_LSM9DS0.cpp)
+               ${PROJECT_SOURCE_DIR}/edisondrone/src/main.cc)
 target_link_libraries(edisondrone-server mraa)
+
+file(GLOB SIMULATOR_SRC_FILES ${PROJECT_SOURCE_DIR}/simulator/*.cc)
+add_executable(edisondrone-simulator
+               ${SRC_FILES}
+               ${SIMULATOR_SRC_FILES})
+target_link_libraries(edisondrone-simulator mraa)
 
 if(test)
     enable_testing()
@@ -38,8 +49,6 @@ if(test)
         ${TEST_SRC_FILES}
         ${SRC_FILES}
         ${PROJECT_SOURCE_DIR}/ext/sparkfun_9dof/SFE_LSM9DS0.cpp)
-    list(REMOVE_ITEM TEST_SRC_FILES
-         ${PROJECT_SOURCE_DIR}/edisondrone/src/main.cc)
     add_executable(edisondrone-test ${TEST_SRC_FILES})
     target_link_libraries(edisondrone-test
                           ${GTEST_LIBRARIES}
