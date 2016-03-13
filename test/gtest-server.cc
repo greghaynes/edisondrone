@@ -1,5 +1,7 @@
 #include "gtest/gtest.h"
 
+
+#include "attitude_updater.h"
 #include "server.h"
 
 class ServerTest : public ::testing::Test {

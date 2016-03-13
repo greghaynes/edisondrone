@@ -1,9 +1,11 @@
 #include "server.h"
 
+#include "lsm9ds0_adapter.h"
+
 using namespace EdisonDrone;
 
 Server::Server(unsigned int imu_update_ms)
-    : m_attitude_updater(imu_update_ms)
+    : m_attitude_updater(imu_update_ms, LSM9DS0Adapter())
     , m_is_running(false) {
 }
 

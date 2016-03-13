@@ -1,7 +1,7 @@
 #ifndef ATTITUDE_UPDATER_H
 #define ATTITUDE_UPDATER_H
 
-#include "SFE_LSM9DS0.h"
+#include "lsm9ds0_adapter.h"
 
 #include "attitude_estimator.h"
 #include "periodic-thread.h"
@@ -10,7 +10,8 @@ namespace EdisonDrone {
 
     class AttitudeUpdater {
         public:
-            AttitudeUpdater(unsigned int imu_update_ms);
+            AttitudeUpdater(unsigned int imu_update_ms,
+                            LSM9DS0Adapter imu);
             ~AttitudeUpdater();
 
             void start();
@@ -21,7 +22,7 @@ namespace EdisonDrone {
             void setGyroRes();
 
             PeriodicThread m_9dof_updater;
-            LSM9DS0 m_9dof;
+            LSM9DS0Adapter m_9dof;
             stateestimation::AttitudeEstimator m_estimator;
             float m_gyro_res; // Radian conversion factor
             float m_accel_res;

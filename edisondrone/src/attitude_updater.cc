@@ -5,10 +5,11 @@
 
 using namespace EdisonDrone;
 
-AttitudeUpdater::AttitudeUpdater(unsigned int imu_update_ms)
+AttitudeUpdater::AttitudeUpdater(unsigned int imu_update_ms,
+                                 LSM9DS0Adapter imu)
     : m_9dof_updater(imu_update_ms,
                      std::bind(&AttitudeUpdater::update9Dof, this))
-    , m_9dof(0x6B, 0x1D) 
+    , m_9dof(std::move(imu))
     , m_estimator()
     , m_gyro_res(4.2760585 / 32768.0)
     , m_accel_res(-2.0 / 32768.0)
@@ -21,7 +22,7 @@ AttitudeUpdater::~AttitudeUpdater() {
 }
 
 void AttitudeUpdater::start() {
-    m_9dof.begin();
+    m_9dof.start();
     m_9dof_updater.start();
 }
 
@@ -30,14 +31,17 @@ void AttitudeUpdater::stop() {
 }
 
 void AttitudeUpdater::update9Dof() {
+    int16_t ax, ay, az, gx, gy, gz;
     m_9dof.readGyro();
     m_9dof.readAccel();
+    m_9dof.getGyroVals(&gx, &gy, &gz);
+    m_9dof.getAccelVals(&ax, &ay, &az);
     m_estimator.update(.01,
-                       m_9dof.gx * m_gyro_res,
-                       m_9dof.gy * m_gyro_res,
-                       m_9dof.gz * m_gyro_res,
-                       m_9dof.ax * m_accel_res,
-                       m_9dof.ay * m_accel_res,
-                       m_9dof.az * m_accel_res,
+                       gx * m_gyro_res,
+                       gy * m_gyro_res,
+                       gz * m_gyro_res,
+                       ax * m_accel_res,
+                       ay * m_accel_res,
+                       az * m_accel_res,
                        0, 0, 0);
 }
