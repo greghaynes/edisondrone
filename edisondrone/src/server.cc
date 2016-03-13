@@ -21,8 +21,8 @@ int Server::start() {
     }
 
     m_attitude_updater.start();
-
     m_is_running = true;
+
     m_start_stop_mutex.unlock();
     return 0;
 }
@@ -31,7 +31,7 @@ void Server::stop() {
     m_start_stop_mutex.lock();
 
     m_attitude_updater.stop();
-
     m_is_running = false;
+
     m_start_stop_mutex.unlock();
 }

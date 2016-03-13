@@ -1,6 +1,5 @@
 #include "gtest/gtest.h"
 
-
 #include "attitude_updater.h"
 #include "imu.h"
 #include "server.h"
@@ -19,9 +18,14 @@ class FakeIMU : public EdisonDrone::IMU {
 
         void getGyroVals(int16_t *x, int16_t *y, int16_t *z) override {
             *x = 0;
+            *y = 0;
+            *z = 0;
         }
 
         void getAccelVals(int16_t *x, int16_t *y, int16_t *z) override {
+            *x = 0;
+            *y = 0;
+            *z = 0;
         }
 
 };
