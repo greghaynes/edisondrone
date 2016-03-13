@@ -25,4 +25,21 @@ Running Tests
 Make sure the code was built with `-Dtest=on` passed to the `cmake` command
 (see Building section for an example). You can then run:
 
+.. code-block:: bash
+
     ./edisondrone-test
+
+
+Simulator
+---------
+
+The Simulator runs a series of generated inputs fed in to the control code and
+then outputs data files which can be graphed using a tool like gnuplot.
+
+An example usage:
+
+.. code-block:: bash
+    ./edisondrone-simulator > simulator.dat
+    gnuplot < simulator.dat > graph.png
+
+You can then view graph.png in any image viewing tool.
