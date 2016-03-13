@@ -23,9 +23,6 @@ namespace EdisonDrone {
             PeriodicThread m_9dof_updater;
             IMU *m_9dof;
             stateestimation::AttitudeEstimator m_estimator;
-            float m_gyro_res; // Radian conversion factor
-            float m_accel_res;
-            float m_mag_res;
     };
 
 }

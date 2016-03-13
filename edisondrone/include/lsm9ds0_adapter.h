@@ -18,11 +18,13 @@ namespace EdisonDrone {
             void start() override;
             void readGyro() override;
             void readAccel() override;
-            void getGyroVals(int16_t *x, int16_t *y, int16_t *z) override;
-            void getAccelVals(int16_t *x, int16_t *y, int16_t *z) override;
+            void getGyroVals(double *x, double *y, double *z) override;
+            void getAccelVals(double *x, double *y, double *z) override;
 
         private:
             ::LSM9DS0 m_imu;
+            double m_gyro_res;
+            double m_accel_res;
 
     };
 

@@ -16,13 +16,13 @@ class FakeIMU : public EdisonDrone::IMU {
         void readAccel() override {
         }
 
-        void getGyroVals(int16_t *x, int16_t *y, int16_t *z) override {
+        void getGyroVals(double *x, double *y, double *z) override {
             *x = 0;
             *y = 0;
             *z = 0;
         }
 
-        void getAccelVals(int16_t *x, int16_t *y, int16_t *z) override {
+        void getAccelVals(double *x, double *y, double *z) override {
             *x = 0;
             *y = 0;
             *z = 0;
