@@ -2,6 +2,12 @@
 edisondrone
 ===========
 
+.. image:: https://travis-ci.org/greghaynes/edisondrone.svg?branch=master
+    :target: https://travis-ci.org/greghaynes/edisondrone
+
+.. image:: https://img.shields.io/github/license/greghaynes/edisondrone.svg?style=flat-square
+    :target: https://github.com/greghaynes/edisondrone/blob/master/LICENSE
+
 A quadcopter drone using the Intel Edison platform.
 
 Building
