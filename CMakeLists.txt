@@ -1,10 +1,12 @@
-cmake_minimum_required(VERSION 2.8.7)
+cmake_minimum_required(VERSION 2.8.8)
+
 set(PROJECT_NAME_STR edisondrone)
 project(${PROJECT_NAME_STR} C CXX)
 
 set(BUILDSWIG OFF CACHE BOOL "Disable swig")
 set(ENABLEEXAMPLES OFF CACHE BOOL "Disable examples")
 set(BUILDTESTS OFF CACHE BOOL "Disable tests")
+
 add_subdirectory(ext/mraa)
 
 if(CMAKE_COMPILER_IS_GNUCXX)
@@ -42,17 +44,20 @@ target_link_libraries(edisondrone-simulator edisondrone)
 
 if(test)
     enable_testing()
-    find_package(GTest REQUIRED)
+    add_subdirectory(ext/googletest)
     include_directories(${GTEST_INCLUDE_DIRS})
 
     file(GLOB TEST_SRC_FILES ${PROJECT_SOURCE_DIR}/test/*.cc)
     set(TEST_SRC_FILES
         ${TEST_SRC_FILES}
         ${PROJECT_SOURCE_DIR}/ext/sparkfun_9dof/SFE_LSM9DS0.cpp)
+
     add_executable(edisondrone-test ${TEST_SRC_FILES})
+    add_dependencies(edisondrone-test googletest)
+
     target_link_libraries(edisondrone-test
-                          ${GTEST_LIBRARIES}
-                          ${GTEST_MAIN_LIBRARIES}
+                          ${GTEST_LIBS_DIR}/libgtest.a
+                          ${GTEST_LIBS_DIR}/libgtest_main.a
                           edisondrone
                           pthread)
 
