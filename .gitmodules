@@ -1,6 +1,3 @@
-[submodule "ext/mraa"]
-	path = ext/mraa
-	url = https://github.com/intel-iot-devkit/mraa.git
 [submodule "ext/sparkfun_9dof"]
 	path = ext/sparkfun_9dof
 	url = https://github.com/sparkfun/SparkFun_9DOF_Block_for_Edison_CPP_Library.git

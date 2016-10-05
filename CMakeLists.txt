@@ -21,7 +21,7 @@ endif()
 find_package(Threads REQUIRED)
 
 include_directories(${PROJECT_SOURCE_DIR}/edisondrone/include
-                    ${PROJECT_SOURCE_DIR}/ext/mraa/api
+                    ${MRAA_INCLUDE_DIRS}
                     ${PROJECT_SOURCE_DIR}/ext/sparkfun_9dof)
 
 file(GLOB SRC_FILES ${PROJECT_SOURCE_DIR}/edisondrone/src/*.cc)
@@ -31,16 +31,19 @@ set(SRC_FILES
     ${PROJECT_SOURCE_DIR}/ext/sparkfun_9dof/SFE_LSM9DS0.cpp)
 
 add_library(edisondrone STATIC ${SRC_FILES})
-target_link_libraries(edisondrone mraa)
+add_dependencies(edisondrone mraa)
+target_link_libraries(edisondrone ${MRAA_LIBS_DIR}/libmraa.so)
 
 add_executable(edisondrone-server
                ${PROJECT_SOURCE_DIR}/edisondrone/src/main.cc)
-target_link_libraries(edisondrone-server mraa edisondrone)
+add_dependencies(edisondrone-server mraa)
+target_link_libraries(edisondrone-server ${MRAA_LIBS_DIR}/libmraa.so edisondrone)
 
 file(GLOB SIMULATOR_SRC_FILES ${PROJECT_SOURCE_DIR}/simulator/*.cc)
 add_executable(edisondrone-simulator
                ${SIMULATOR_SRC_FILES})
-target_link_libraries(edisondrone-simulator edisondrone)
+add_dependencies(edisondrone-simulator mraa)
+target_link_libraries(edisondrone-simulator ${MRAA_LIBS_DIR}/libmraa.so edisondrone)
 
 if(test)
     enable_testing()
@@ -53,7 +56,7 @@ if(test)
         ${PROJECT_SOURCE_DIR}/ext/sparkfun_9dof/SFE_LSM9DS0.cpp)
 
     add_executable(edisondrone-test ${TEST_SRC_FILES})
-    add_dependencies(edisondrone-test googletest)
+    add_dependencies(edisondrone-test mraa googletest)
 
     target_link_libraries(edisondrone-test
                           ${GTEST_LIBS_DIR}/libgtest.a
