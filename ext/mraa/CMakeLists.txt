@@ -5,6 +5,7 @@ ExternalProject_Add(mraa
     GIT_REPOSITORY https://github.com/intel-iot-devkit/mraa
     PREFIX "${CMAKE_CURRENT_BINARY_DIR}"
     INSTALL_COMMAND ""
+    CMAKE_ARGS "-DBUILDSWIG=OFF"
     )
 
 ExternalProject_Get_Property(mraa source_dir)
