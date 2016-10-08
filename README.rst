@@ -37,8 +37,6 @@ The following commands can be used to build:
 
     git clone https://github.com/greghaynes/edisondrone.git
     cd edisondrone
-    git submodule init
-    git submodule update
     cmake -Dtest=on .
     make
 

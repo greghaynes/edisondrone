@@ -23,7 +23,6 @@ install:
   - popd
 
 before_script:
-  - git submodule init
   - mkdir build
   - cd build
   - cmake -Dtest=on ..
