@@ -1,0 +1,21 @@
+#!/bin/bash
+
+set -eux
+set -o pipefail
+
+bin_dir=$(readlink -f $(dirname $0))
+img_path=${1:-simulator.png}
+
+if ! $(command -v gnuplot > /dev/null 2>&1); then
+    echo "ERROR: No gnuplot command found. Install the gnuplot package."
+    exit 1
+fi
+
+sim_data_dir=$(mktemp -d)
+trap "rm -rf ${sim_data_dir}" EXIT
+
+cd ${sim_data_dir}
+cp ${bin_dir}/simulator.gnuplot simulator.gnuplot
+
+${bin_dir}/edisondrone-simulator > simulator.dat
+gnuplot < simulator.gnuplot > $img_path

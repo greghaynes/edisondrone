@@ -66,11 +66,18 @@ Simulator
 The Simulator runs a series of generated inputs fed in to the control code and
 then outputs data files which can be graphed using a tool like gnuplot.
 
-An example usage:
+Run the edisondrone-simulator-img to generate a gnuplot image
+(after running the commands in `Compiling`):
+
+.. code-block:: bash
+
+    ./edisondrone-simulator-img simulator.png
+
+Or create a gnuplot graph on your own:
 
 .. code-block:: bash
 
     ./edisondrone-simulator > simulator.dat
-    gnuplot < simulator/simulator.gnuplot > graph.png
+    gnuplot < simulator.gnuplot > graph.png
 
 You can then view graph.png in any image viewing tool.

@@ -66,3 +66,6 @@ if(test)
 
     add_test(AllEdisondroneTests edisondrone-test)
 endif()
+
+configure_file(simulator/edisondrone-simulator-img edisondrone-simulator-img COPYONLY)
+configure_file(simulator/simulator.gnuplot simulator.gnuplot COPYONLY)
