@@ -5,6 +5,7 @@ set -o pipefail
 
 bin_dir=$(readlink -f $(dirname $0))
 img_path=${1:-simulator.png}
+img_path=$(readlink -f ${img_path})
 
 if ! $(command -v gnuplot > /dev/null 2>&1); then
     echo "ERROR: No gnuplot command found. Install the gnuplot package."
