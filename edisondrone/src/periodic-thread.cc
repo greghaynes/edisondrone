@@ -1,17 +1,17 @@
-#include <thread>
-
 #include "periodic-thread.h"
+
+#include "thread"
 
 using namespace EdisonDrone;
 
-PeriodicThread::PeriodicThread(unsigned int sleep_ms,
+PeriodicThread::PeriodicThread(unsigned int sleep_us,
                                std::function<void()> target)
     : Thread(std::bind(&PeriodicThread::run, this))
-    , m_sleep_ms(sleep_ms)
+    , m_sleep_us(sleep_us)
     , m_target(target)
     , m_stop_running(false) {
     m_sleep_ts.tv_sec = 0;
-    m_sleep_ts.tv_nsec = m_sleep_ms*1000*1000;
+    m_sleep_ts.tv_nsec = m_sleep_us*1000;
 }
 
 void PeriodicThread::stop() {

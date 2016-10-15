@@ -1,18 +1,17 @@
-#include "server.h"
+#include "drone.h"
+#include "sensor-listener.h"
 
 using namespace EdisonDrone;
 
-Server::Server(unsigned int imu_update_ms,
-               IMU &imu)
-    : m_attitude_updater(imu_update_ms, imu)
-    , m_is_running(false) {
+Drone::Drone()
+    : m_is_running(false) {
 }
 
-bool Server::isRunning() {
+bool Drone::isRunning() {
     return m_is_running;
 }
 
-int Server::start() {
+int Drone::start() {
     m_start_stop_mutex.lock();
 
     if(isRunning()) {
@@ -20,17 +19,15 @@ int Server::start() {
         return 1;
     }
 
-    m_attitude_updater.start();
     m_is_running = true;
 
     m_start_stop_mutex.unlock();
     return 0;
 }
 
-void Server::stop() {
+void Drone::stop() {
     m_start_stop_mutex.lock();
 
-    m_attitude_updater.stop();
     m_is_running = false;
 
     m_start_stop_mutex.unlock();

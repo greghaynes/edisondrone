@@ -19,7 +19,7 @@ class PeriodicThreadTest : public ::testing::Test {
 
 TEST_F(PeriodicThreadTest, wakeup_interval) {
     EdisonDrone::PeriodicThread pt(
-        10, std::bind(&PeriodicThreadTest::record_wakeup, this)
+        10*1000, std::bind(&PeriodicThreadTest::record_wakeup, this)
     );
     m_pt = &pt;
     pt.start();

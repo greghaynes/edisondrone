@@ -10,7 +10,7 @@ namespace EdisonDrone {
 
     class PeriodicThread : public Thread {
         public:
-            PeriodicThread(unsigned int sleep_ms,
+            PeriodicThread(unsigned int sleep_us,
                            std::function<void()> target);
 
             void stop();
@@ -18,7 +18,7 @@ namespace EdisonDrone {
         private:
             void run();
 
-            unsigned int m_sleep_ms;
+            unsigned int m_sleep_us;
             struct timespec m_sleep_ts;
             std::function<void()> m_target;
             bool m_stop_running;
