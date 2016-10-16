@@ -24,7 +24,8 @@ include_directories(${PROJECT_SOURCE_DIR}/edisondrone/include
                     ${MRAA_INCLUDE_DIRS}
                     ${PROJECT_SOURCE_DIR}/ext/sparkfun_9dof)
 
-file(GLOB SRC_FILES ${PROJECT_SOURCE_DIR}/edisondrone/src/*.cc)
+file(GLOB SRC_FILES ${PROJECT_SOURCE_DIR}/edisondrone/src/*.cc
+                    ${PROJECT_SOURCE_DIR}/edisondrone/src/sensors/*.cc)
 list(REMOVE_ITEM SRC_FILES ${PROJECT_SOURCE_DIR}/edisondrone/src/main.cc)
 set(SRC_FILES
     ${SRC_FILES}
@@ -50,7 +51,8 @@ if(test)
     add_subdirectory(ext/googletest)
     include_directories(${GTEST_INCLUDE_DIRS})
 
-    file(GLOB TEST_SRC_FILES ${PROJECT_SOURCE_DIR}/test/*.cc)
+    file(GLOB TEST_SRC_FILES ${PROJECT_SOURCE_DIR}/test/*.cc
+                             ${PROJECT_SOURCE_DIR}/test/sensors/*.cc)
     set(TEST_SRC_FILES
         ${TEST_SRC_FILES}
         ${PROJECT_SOURCE_DIR}/ext/sparkfun_9dof/SFE_LSM9DS0.cpp)

@@ -29,7 +29,7 @@ class TestGyro : public EdisonDrone::Gyro {
         int m_sense_count;
 };
 
-TEST_F(IMUTest, zero_gyro) {
+TEST_F(IMUTest, gyro_called) {
     TestGyro g(*this);
     EdisonDrone::IMU imu(g, 1*1000);
     this->m_imu = &imu;
