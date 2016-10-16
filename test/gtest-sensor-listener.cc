@@ -10,18 +10,23 @@ class TestEvent : public EdisonDrone::SensorEvent {
 
 class TestSensor : public EdisonDrone::Sensor {
     public:
-        void getSenseEvent(TestEvent *event) const {
+        void getSenseEvent(EdisonDrone::SensorEvent *event) {
         }
 };
 
 class SensorListenerTest : public ::testing::Test {
 
     public:
+        SensorListenerTest() : m_update_cnt(0) {}
         void gotSensorUpdate(const TestEvent &ev) {
-            m_sl->stop();
+            if(m_update_cnt == 1)
+                m_sl->stop();
+            else
+                m_update_cnt = 1;
         }
 
         EdisonDrone::SensorListener<TestSensor, TestEvent> *m_sl;
+        int m_update_cnt;
 };
 
 TEST_F(SensorListenerTest, get_event) {

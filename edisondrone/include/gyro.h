@@ -10,7 +10,7 @@ namespace EdisonDrone {
 
     class Gyro : public Sensor {
         public:
-            void getSenseEvent(GyroEvent *ev) {};
+            void getSenseEvent(SensorEvent *ev) override {};
     };
 }
 

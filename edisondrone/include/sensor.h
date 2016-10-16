@@ -6,6 +6,8 @@ namespace EdisonDrone {
     };
 
     class Sensor {
+        public:
+            virtual void getSenseEvent(SensorEvent*) = 0;
     };
 }
 

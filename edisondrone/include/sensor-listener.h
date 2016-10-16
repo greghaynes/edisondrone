@@ -10,8 +10,8 @@ namespace EdisonDrone {
     template <class T, class U>
     class SensorListener {
         public:
-            SensorListener(const T& sensor,
-                           std::function<void(const U&)> target,
+            SensorListener(T& sensor,
+                           std::function<void(U&)> target,
                            unsigned int listen_interval_usecs);
 
             void start();
@@ -21,16 +21,16 @@ namespace EdisonDrone {
         private:
             void updateSensor();
 
-            const T *m_sensor;
-            std::function<void(const U&)> m_target;
+            T *m_sensor;
+            std::function<void(U&)> m_target;
             unsigned int m_listen_interval_usecs;
             PeriodicThread m_listener_thread;
     };
 
     template <class T, class U>
     SensorListener<T, U>::SensorListener(
-        const T& sensor,
-        std::function<void(const U&)> target,
+        T& sensor,
+        std::function<void(U&)> target,
         unsigned int listen_interval_usecs)
         : m_sensor(&sensor)
         , m_target(target)
