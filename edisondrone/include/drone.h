@@ -5,9 +5,6 @@
 
 namespace EdisonDrone {
 
-    class Gyro {
-    };
-
     class Drone {
         public:
             Drone();
