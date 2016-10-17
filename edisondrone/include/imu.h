@@ -2,6 +2,7 @@
 #define IMU_H
 
 #include "gyro.h"
+#include "quaternion.h"
 #include "sensor-listener.h"
 
 namespace EdisonDrone {
@@ -15,15 +16,14 @@ namespace EdisonDrone {
             void stop();
             void join();
 
-            double eulerRoll() const;
-            double eulerPitch() const;
-            double eulerYaw() const;
+			const Quaternion &attitude() const;
 
         private:
-            void onGyroUpdate(GyroEvent &event);
+            void onGyroUpdate(GyroEvent &ev);
 
+			double m_update_secs;
             SensorListener<Gyro, GyroEvent> m_gyro_listener;
-
+			Quaternion m_position;
     };
 
 }

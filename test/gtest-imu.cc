@@ -50,7 +50,9 @@ TEST_F(IMUTest, gyro_zero_only) {
     imu.start();
     imu.join();
 
-    EXPECT_EQ(imu.eulerRoll(), 0);
-    EXPECT_EQ(imu.eulerPitch(), 0);
-    EXPECT_EQ(imu.eulerYaw(), 0);
+	double eulers[3];
+	imu.attitude().toEulers(eulers);
+	EXPECT_EQ(eulers[0], 0);
+	EXPECT_EQ(eulers[1], 0);
+	EXPECT_EQ(eulers[2], 0);
 }

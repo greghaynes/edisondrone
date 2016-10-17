@@ -5,7 +5,8 @@
 using namespace EdisonDrone;
 
 IMU::IMU(Gyro &gyro, unsigned int gyro_update_usecs)
-    : m_gyro_listener(gyro,
+	: m_update_secs(gyro_update_usecs / (1000.0 * 1000.0))
+    , m_gyro_listener(gyro,
                       std::bind(&IMU::onGyroUpdate, this,
                                 std::placeholders::_1),
                       gyro_update_usecs) {
@@ -23,17 +24,13 @@ void IMU::join() {
     m_gyro_listener.join();
 }
 
-double IMU::eulerRoll() const {
-    return 0;
+const Quaternion &IMU::attitude() const {
+	return m_position;
 }
 
-double IMU::eulerPitch() const {
-    return 0;
-}
-
-double IMU::eulerYaw() const {
-    return 0;
-}
-
-void IMU::onGyroUpdate(GyroEvent &event) {
+void IMU::onGyroUpdate(GyroEvent &ev) {
+	Quaternion ev_q(ev.x * m_update_secs,
+					ev.y * m_update_secs,
+					ev.z * m_update_secs);
+	m_position.rotate(ev_q);
 }
