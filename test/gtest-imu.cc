@@ -14,26 +14,43 @@ class IMUTest : public ::testing::Test {
 
 class TestGyro : public EdisonDrone::Gyro {
     public:
-        TestGyro(IMUTest &imu_test)
+        TestGyro(IMUTest &imu_test, unsigned int sense_counts)
             : m_imu_test(&imu_test)
-            , m_sense_count(0) {}
+            , m_sense_counts(sense_counts) {}
 
-        virtual void getSenseEvent(EdisonDrone::SensorEvent*) {
-            if(m_sense_count == 1)
+        void getGyroEvent(EdisonDrone::GyroEvent *ev) {
+            if(m_sense_counts == 0)
                 m_imu_test->stop();
             else
-                m_sense_count = 1;
+                --m_sense_counts;
+
+            ev->x = 0;
+            ev->y = 0;
+            ev->z = 0;
         }
 
         IMUTest *m_imu_test;
-        int m_sense_count;
+        int m_sense_counts;
 };
 
 TEST_F(IMUTest, gyro_called) {
-    TestGyro g(*this);
+    TestGyro g(*this, 2);
     EdisonDrone::IMU imu(g, 1*1000);
     this->m_imu = &imu;
 
     imu.start();
     imu.join();
+}
+
+TEST_F(IMUTest, gyro_zero_only) {
+    TestGyro g(*this, 10);
+    EdisonDrone::IMU imu(g, 1*1000);
+    this->m_imu = &imu;
+
+    imu.start();
+    imu.join();
+
+    EXPECT_EQ(imu.eulerRoll(), 0);
+    EXPECT_EQ(imu.eulerPitch(), 0);
+    EXPECT_EQ(imu.eulerYaw(), 0);
 }

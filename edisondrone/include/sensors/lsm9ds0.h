@@ -9,7 +9,7 @@ namespace EdisonDrone {
     class LSM9DS0Gyro : public Gyro {
         public:
             LSM9DS0Gyro(LSM9DS0 &hw);
-            void getSenseEvent(SensorEvent *ev);
+            void getGyroEvent(GyroEvent *ev);
 
         private:
             LSM9DS0 *m_hw;

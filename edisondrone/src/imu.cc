@@ -23,5 +23,17 @@ void IMU::join() {
     m_gyro_listener.join();
 }
 
+double IMU::eulerRoll() const {
+    return 0;
+}
+
+double IMU::eulerPitch() const {
+    return 0;
+}
+
+double IMU::eulerYaw() const {
+    return 0;
+}
+
 void IMU::onGyroUpdate(GyroEvent &event) {
 }

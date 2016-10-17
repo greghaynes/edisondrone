@@ -6,7 +6,7 @@ LSM9DS0Gyro::LSM9DS0Gyro(LSM9DS0 &hw)
     : m_hw(&hw) {
 }
 
-void LSM9DS0Gyro::getSenseEvent(SensorEvent *ev) {
+void LSM9DS0Gyro::getGyroEvent(GyroEvent *ev) {
     // Read the state of the gyro
 }
 
