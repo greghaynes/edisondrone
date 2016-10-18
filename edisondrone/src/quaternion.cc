@@ -37,14 +37,10 @@ void Quaternion::rotate(const Quaternion &other) {
 	double newval[4];
 	other.toArray(q2);
 
-	newval[0] = m_q[0] * q2[3] + m_q[1] * q2[2]
-			    - m_q[2] * q2[1] + m_q[3] * q2[0];
-	newval[1] = -m_q[0] * q2[2] + m_q[1] * q2[3]
-		        + m_q[2] * q2[0] + m_q[3] * q2[1];
-	newval[2] = m_q[0] * q2[1] - m_q[1] * q2[0]
-		        + m_q[2] * q2[3] + m_q[3] * q2[2];
-	newval[3] = -m_q[0] * q2[0] - m_q[1] * q2[1]
-                - m_q[2] * q2[2] + m_q[3] * q2[3];
+    newval[0] = -m_q[1] * q2[1] - m_q[2] * q2[2] - m_q[3] * q2[3] + m_q[0] * q2[0];
+    newval[1] =  m_q[1] * q2[0] + m_q[2] * q2[3] - m_q[3] * q2[2] + m_q[0] * q2[1];
+    newval[2] = -m_q[1] * q2[3] + m_q[2] * q2[0] + m_q[3] * q2[1] + m_q[0] * q2[2];
+    newval[3] =  m_q[1] * q2[2] - m_q[2] * q2[1] + m_q[3] * q2[0] + m_q[0] * q2[3];
 
 	m_q[0] = newval[0];
 	m_q[1] = newval[1];
@@ -60,17 +56,17 @@ void Quaternion::toArray(double *arr) const {
 }
 
 void Quaternion::toEulers(double *arr) const {
-	double ysqr = m_q[1] * m_q[1];
-	double t0 = -2.0f * (ysqr + m_q[2] * m_q[2]) + 1.0f;
-	double t1 = +2.0f * (m_q[0] * m_q[1] + m_q[3] * m_q[2]);
-	double t2 = -2.0f * (m_q[0] * m_q[2] - m_q[3] * m_q[1]);
-	double t3 = +2.0f * (m_q[1] * m_q[2] + m_q[3] * m_q[0]);
-	double t4 = -2.0f * (m_q[0] * m_q[0] + ysqr) + 1.0f;
+    double ysqr = m_q[2] * m_q[2];
+    double t0 = -2.0f * (ysqr + m_q[3] * m_q[3]) + 1.0f;
+    double t1 = +2.0f * (m_q[1] * m_q[2] + m_q[0] * m_q[3]);
+    double t2 = -2.0f * (m_q[1] * m_q[3] - m_q[0] * m_q[2]);
+    double t3 = +2.0f * (m_q[2] * m_q[3] + m_q[0] * m_q[1]);
+    double t4 = -2.0f * (m_q[1] * m_q[1] + ysqr) + 1.0f;
 
-	t2 = t2 > 1.0f ? 1.0f : t2;
-	t2 = t2 < -1.0f ? -1.0f : t2;
+    t2 = t2 > 1.0f ? 1.0f : t2;
+    t2 = t2 < -1.0f ? -1.0f : t2;
 
-	arr[0] = std::asin(t2);
-	arr[1] = std::atan2(t3, t4);
-	arr[2] = std::atan2(t1, t0);
+    arr[0] = std::atan2(t3, t4);
+    arr[1] = std::asin(t2);
+    arr[2] = std::atan2(t1, t0);
 }
