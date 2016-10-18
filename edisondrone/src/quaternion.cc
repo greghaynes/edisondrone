@@ -5,17 +5,17 @@
 using namespace EdisonDrone;
 
 Quaternion::Quaternion() {
-	m_q[0] = 0;
-	m_q[1] = 0;
-	m_q[2] = 0;
-	m_q[3] = 0;
+    m_q[0] = 0;
+    m_q[1] = 0;
+    m_q[2] = 0;
+    m_q[3] = 0;
 }
 
 Quaternion::Quaternion(double *array) {
-	m_q[0] = array[0];
-	m_q[1] = array[1];
-	m_q[2] = array[2];
-	m_q[3] = array[3];
+    m_q[0] = array[0];
+    m_q[1] = array[1];
+    m_q[2] = array[2];
+    m_q[3] = array[3];
 }
 
 Quaternion::Quaternion(double roll, double pitch, double yaw) {
@@ -33,26 +33,26 @@ Quaternion::Quaternion(double roll, double pitch, double yaw) {
 }
 
 void Quaternion::rotate(const Quaternion &other) {
-	double q2[4];
-	double newval[4];
-	other.toArray(q2);
+    double q2[4];
+    double newval[4];
+    other.toArray(q2);
 
     newval[0] = -m_q[1] * q2[1] - m_q[2] * q2[2] - m_q[3] * q2[3] + m_q[0] * q2[0];
     newval[1] =  m_q[1] * q2[0] + m_q[2] * q2[3] - m_q[3] * q2[2] + m_q[0] * q2[1];
     newval[2] = -m_q[1] * q2[3] + m_q[2] * q2[0] + m_q[3] * q2[1] + m_q[0] * q2[2];
     newval[3] =  m_q[1] * q2[2] - m_q[2] * q2[1] + m_q[3] * q2[0] + m_q[0] * q2[3];
 
-	m_q[0] = newval[0];
-	m_q[1] = newval[1];
-	m_q[2] = newval[2];
-	m_q[3] = newval[3];
+    m_q[0] = newval[0];
+    m_q[1] = newval[1];
+    m_q[2] = newval[2];
+    m_q[3] = newval[3];
 }
 
 void Quaternion::toArray(double *arr) const {
-	arr[0] = m_q[0];
-	arr[1] = m_q[1];
-	arr[2] = m_q[2];
-	arr[3] = m_q[3];
+    arr[0] = m_q[0];
+    arr[1] = m_q[1];
+    arr[2] = m_q[2];
+    arr[3] = m_q[3];
 }
 
 void Quaternion::toEulers(double *arr) const {
