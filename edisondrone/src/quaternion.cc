@@ -19,16 +19,16 @@ Quaternion::Quaternion(double *array) {
 }
 
 Quaternion::Quaternion(double roll, double pitch, double yaw) {
-	double t0 = std::cos(yaw * 0.5f);
-	double t1 = std::sin(yaw * 0.5f);
-	double t2 = std::cos(roll * 0.5f);
-	double t3 = std::sin(roll * 0.5f);
-	double t4 = std::cos(pitch * 0.5f);
-	double t5 = std::sin(pitch * 0.5f);
+    double t0 = std::cos(yaw * 0.5f);
+    double t1 = std::sin(yaw * 0.5f);
+    double t2 = std::cos(roll * 0.5f);
+    double t3 = std::sin(roll * 0.5f);
+    double t4 = std::cos(pitch * 0.5f);
+    double t5 = std::sin(pitch * 0.5f);
 
-	m_q[0] = t0 * t2 * t4 + t1 * t3 * t5;
-	m_q[1] = t0 * t3 * t4 - t1 * t2 * t5;
-	m_q[2] = t0 * t2 * t5 + t1 * t3 * t4;
+    m_q[0] = t0 * t2 * t4 + t1 * t3 * t5;
+    m_q[1] = t0 * t3 * t4 - t1 * t2 * t5;
+    m_q[2] = t0 * t2 * t5 + t1 * t3 * t4;
     m_q[3] = t1 * t2 * t4 - t0 * t3 * t5;
 }
 
