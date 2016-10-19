@@ -7,6 +7,9 @@
 namespace EdisonDrone {
     class GyroEvent : public SensorEvent {
         public:
+            GyroEvent();
+            GyroEvent(const GyroEvent &other);
+            GyroEvent(double x, double y, double z);
             double x;
             double y;
             double z;

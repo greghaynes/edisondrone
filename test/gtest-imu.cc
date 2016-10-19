@@ -3,6 +3,8 @@
 #include "gyro.h"
 #include "imu.h"
 
+#define PI 3.1415926535897
+
 class IMUTest : public ::testing::Test {
     public:
         void stop() {
@@ -14,9 +16,12 @@ class IMUTest : public ::testing::Test {
 
 class TestGyro : public EdisonDrone::Gyro {
     public:
-        TestGyro(IMUTest &imu_test, unsigned int sense_counts)
+        TestGyro(IMUTest &imu_test,
+                 unsigned int sense_counts,
+                 const EdisonDrone::GyroEvent &ev)
             : m_imu_test(&imu_test)
-            , m_sense_counts(sense_counts) {}
+            , m_sense_counts(sense_counts)
+            , m_ev(ev) {}
 
         void getGyroEvent(EdisonDrone::GyroEvent *ev) {
             if(m_sense_counts == 0)
@@ -24,17 +29,18 @@ class TestGyro : public EdisonDrone::Gyro {
             else
                 --m_sense_counts;
 
-            ev->x = 0;
-            ev->y = 0;
-            ev->z = 0;
+            ev->x = m_ev.x;
+            ev->y = m_ev.y;
+            ev->z = m_ev.z;
         }
 
         IMUTest *m_imu_test;
         int m_sense_counts;
+        EdisonDrone::GyroEvent m_ev;
 };
 
 TEST_F(IMUTest, gyro_called) {
-    TestGyro g(*this, 2);
+    TestGyro g(*this, 2, EdisonDrone::GyroEvent());
     EdisonDrone::IMU imu(g, 1*1000);
     this->m_imu = &imu;
 
@@ -42,8 +48,9 @@ TEST_F(IMUTest, gyro_called) {
     imu.join();
 }
 
-TEST_F(IMUTest, gyro_zero_only) {
-    TestGyro g(*this, 10);
+TEST_F(IMUTest, gyro_no_motion) {
+    TestGyro g(*this, 10,
+               EdisonDrone::GyroEvent(0, 0, 0));
     EdisonDrone::IMU imu(g, 1*1000);
     this->m_imu = &imu;
 
@@ -52,7 +59,8 @@ TEST_F(IMUTest, gyro_zero_only) {
 
 	double eulers[3];
 	imu.attitude().toEulers(eulers);
-	EXPECT_EQ(eulers[0], 0);
+	EXPECT_LE(eulers[0], (PI / 2.0) + .0001);
+	EXPECT_GE(eulers[0], (PI / 2.0) - .0001);
 	EXPECT_EQ(eulers[1], 0);
 	EXPECT_EQ(eulers[2], 0);
 }

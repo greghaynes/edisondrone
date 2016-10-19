@@ -2,6 +2,8 @@
 
 #include <functional>
 
+#define PI 3.1415926535897
+
 using namespace EdisonDrone;
 
 IMU::IMU(Gyro &gyro, unsigned int gyro_update_usecs)
@@ -9,7 +11,8 @@ IMU::IMU(Gyro &gyro, unsigned int gyro_update_usecs)
     , m_gyro_listener(gyro,
                       std::bind(&IMU::onGyroUpdate, this,
                                 std::placeholders::_1),
-                      gyro_update_usecs) {
+                      gyro_update_usecs)
+    , m_position(PI / 2, 0, 0) {
 }
 
 void IMU::start() {
@@ -33,4 +36,5 @@ void IMU::onGyroUpdate(GyroEvent &ev) {
 					ev.y * m_update_secs,
 					ev.z * m_update_secs);
 	m_position.rotate(ev_q);
+    m_position.normalize();
 }
