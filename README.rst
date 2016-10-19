@@ -11,6 +11,20 @@ edisondrone
 A quadcopter drone using the Intel Edison platform.
 
 
+Why
+---
+
+To greatly decrease the barrier to entry for writing custom drone applications
+by providing an x86, Linux based drone platform.
+
+The intel edison board is an x86 SOC module with an easy to use interface
+for many peripherals (such as those needed to control a quadcopter). By
+combining this with Linux real-time thread scheduling we can make a drone
+platform which runs as a typical x86 application on Linux. This greatly lowers
+the bar required to write custom applications, develop the platform, or add
+peripherals to the drone.
+
+
 Hardware
 --------
 
