@@ -10,10 +10,13 @@ namespace EdisonDrone {
             Quaternion(double roll, double pitch, double yaw);
 
 
-			void rotate(const Quaternion &other);
-			void toArray(double *arr) const;
-			// RPY array
-			void toEulers(double *arr) const;
+            void normalize();
+            void rotate(const Quaternion &other);
+            void toArray(double *arr) const;
+            // RPY array
+            void toEulers(double *arr) const;
+            double normalsq() const;
+            void scale(double factor);
 
         private:
             double m_q[4];

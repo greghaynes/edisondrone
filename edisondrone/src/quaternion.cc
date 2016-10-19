@@ -32,6 +32,17 @@ Quaternion::Quaternion(double roll, double pitch, double yaw) {
     m_q[3] = t1 * t2 * t4 - t0 * t3 * t5;
 }
 
+void Quaternion::normalize() {
+    // see http://stackoverflow.com/a/12934750
+    double qmagsq = normalsq();
+    if (std::abs(1.0 - qmagsq) < 2.107342e-08) {
+            scale(2.0 / (1.0 + qmagsq));
+    }
+    else {
+            scale (1.0 / std::sqrt(qmagsq));
+    }
+}
+
 void Quaternion::rotate(const Quaternion &other) {
     double q2[4];
     double newval[4];
@@ -69,4 +80,16 @@ void Quaternion::toEulers(double *arr) const {
     arr[0] = std::atan2(t3, t4);
     arr[1] = std::asin(t2);
     arr[2] = std::atan2(t1, t0);
+}
+
+double Quaternion::normalsq() const {
+    return std::pow(m_q[0], 2) + std::pow(m_q[1], 2) +
+           std::pow(m_q[2], 2) + std::pow(m_q[3], 2);
+}
+
+void Quaternion::scale(double factor) {
+    m_q[0] *= factor;
+    m_q[1] *= factor;
+    m_q[2] *= factor;
+    m_q[3] *= factor;
 }
