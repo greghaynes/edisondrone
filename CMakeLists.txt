@@ -3,10 +3,6 @@ cmake_minimum_required(VERSION 2.8.7)
 set(PROJECT_NAME_STR edisondrone)
 project(${PROJECT_NAME_STR} C CXX)
 
-set(BUILDSWIG OFF CACHE BOOL "Disable swig")
-set(ENABLEEXAMPLES OFF CACHE BOOL "Disable examples")
-set(BUILDTESTS OFF CACHE BOOL "Disable tests")
-
 add_subdirectory(ext/mraa)
 
 if(CMAKE_COMPILER_IS_GNUCXX)
