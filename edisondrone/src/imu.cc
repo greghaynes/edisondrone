@@ -26,14 +26,18 @@ void IMU::join() {
     m_gyro_listener.join();
 }
 
+double IMU::gyroUpdateSecs() const {
+    return m_update_secs;
+}
+
 const Quaternion &IMU::attitude() const {
 	return m_position;
 }
 
 void IMU::onGyroUpdate(GyroEvent &ev) {
-	Quaternion ev_q(ev.x() * m_update_secs,
-					ev.y() * m_update_secs,
-					ev.z() * m_update_secs);
+	Quaternion ev_q(ev.x() * gyroUpdateSecs(),
+					ev.y() * gyroUpdateSecs(),
+					ev.z() * gyroUpdateSecs());
 	m_position.rotate(ev_q);
     m_position.normalize();
 }

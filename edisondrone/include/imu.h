@@ -19,6 +19,7 @@ namespace EdisonDrone {
             void stop();
             void join();
 
+            double gyroUpdateSecs() const;
 			const Quaternion &attitude() const;
 
         private:

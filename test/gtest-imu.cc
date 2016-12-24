@@ -58,6 +58,13 @@ TEST_F(IMUTest, imu_initial_state) {
 	EXPECT_EQ(eulers[2], 0);
 }
 
+TEST_F(IMUTest, imu_update_secs) {
+    TestGyro g(*this, 2, EdisonDrone::GyroEvent());
+    EdisonDrone::IMU imu(g, 1*1000);
+
+    EXPECT_EQ(imu.gyroUpdateSecs(), 0.001);
+}
+
 TEST_F(IMUTest, gyro_called) {
     TestGyro g(*this, 2, EdisonDrone::GyroEvent());
     EdisonDrone::IMU imu(g, 1*1000);
@@ -80,6 +87,24 @@ TEST_F(IMUTest, gyro_no_motion) {
 	imu.attitude().toEulers(eulers);
 	EXPECT_LE(eulers[0], (PI / 2.0) + .0001);
 	EXPECT_GE(eulers[0], (PI / 2.0) - .0001);
+	EXPECT_EQ(eulers[1], 0);
+	EXPECT_EQ(eulers[2], 0);
+}
+
+TEST_F(IMUTest, gyro_roll) {
+    TestGyro g(*this, 100,
+               EdisonDrone::GyroEvent(PI / 2.0, 0.0, 0.0));
+    EdisonDrone::IMU imu(g, 1*1000);
+    this->m_imu = &imu;
+
+    imu.start();
+    imu.join();
+
+	double eulers[3];
+	imu.attitude().toEulers(eulers);
+    double roll_dest = (PI / 2) + ((PI / 2) / 10);
+	EXPECT_LE(eulers[0], roll_dest + .01);
+	EXPECT_GE(eulers[0], roll_dest - .01);
 	EXPECT_EQ(eulers[1], 0);
 	EXPECT_EQ(eulers[2], 0);
 }
