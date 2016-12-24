@@ -2,8 +2,7 @@
 
 #include "gyro.h"
 #include "imu.h"
-
-#define PI 3.1415926535897
+#include "vector3f.h"
 
 class IMUTest : public ::testing::Test {
     public:
@@ -38,6 +37,26 @@ class TestGyro : public EdisonDrone::Gyro {
         int m_sense_counts;
         EdisonDrone::GyroEvent m_ev;
 };
+
+TEST_F(IMUTest, imu_initial_state) {
+    TestGyro g(*this, 2, EdisonDrone::GyroEvent());
+	double eulers[3];
+    
+    EdisonDrone::IMU imu_default(g, 1*1000);
+	imu_default.attitude().toEulers(eulers);
+	EXPECT_LE(eulers[0], (PI / 2.0) + .0001);
+	EXPECT_GE(eulers[0], (PI / 2.0) - .0001);
+	EXPECT_EQ(eulers[1], 0);
+	EXPECT_EQ(eulers[2], 0);
+    
+    EdisonDrone::IMU imu_pitchonly(g, 1*1000,
+                                   EdisonDrone::Vector3f(0, PI/2.0, 0));
+	imu_pitchonly.attitude().toEulers(eulers);
+	EXPECT_EQ(eulers[0], 0);
+	EXPECT_LE(eulers[1], (PI / 2.0) + .0001);
+	EXPECT_GE(eulers[1], (PI / 2.0) - .0001);
+	EXPECT_EQ(eulers[2], 0);
+}
 
 TEST_F(IMUTest, gyro_called) {
     TestGyro g(*this, 2, EdisonDrone::GyroEvent());
