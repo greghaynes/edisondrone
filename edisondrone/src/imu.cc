@@ -32,9 +32,9 @@ const Quaternion &IMU::attitude() const {
 }
 
 void IMU::onGyroUpdate(GyroEvent &ev) {
-	Quaternion ev_q(ev.x * m_update_secs,
-					ev.y * m_update_secs,
-					ev.z * m_update_secs);
+	Quaternion ev_q(ev.x() * m_update_secs,
+					ev.y() * m_update_secs,
+					ev.z() * m_update_secs);
 	m_position.rotate(ev_q);
     m_position.normalize();
 }

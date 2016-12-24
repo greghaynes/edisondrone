@@ -29,9 +29,9 @@ class TestGyro : public EdisonDrone::Gyro {
             else
                 --m_sense_counts;
 
-            ev->x = m_ev.x;
-            ev->y = m_ev.y;
-            ev->z = m_ev.z;
+            ev->setX(m_ev.x());
+            ev->setY(m_ev.y());
+            ev->setZ(m_ev.z());
         }
 
         IMUTest *m_imu_test;
@@ -50,7 +50,7 @@ TEST_F(IMUTest, gyro_called) {
 
 TEST_F(IMUTest, gyro_no_motion) {
     TestGyro g(*this, 10,
-               EdisonDrone::GyroEvent(0, 0, 0));
+               EdisonDrone::GyroEvent(0.0, 0.0, 0.0));
     EdisonDrone::IMU imu(g, 1*1000);
     this->m_imu = &imu;
 

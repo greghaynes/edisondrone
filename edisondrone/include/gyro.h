@@ -2,17 +2,14 @@
 #define GYRO_H
 
 #include "sensor.h"
-#include "sensor-listener.h"
+#include "vector3f.h"
 
 namespace EdisonDrone {
-    class GyroEvent : public SensorEvent {
+    class GyroEvent : public Vector3f, public SensorEvent {
         public:
-            GyroEvent();
-            GyroEvent(const GyroEvent &other);
-            GyroEvent(double x, double y, double z);
-            double x;
-            double y;
-            double z;
+            GyroEvent() {};
+            GyroEvent(const GyroEvent &other) : Vector3f(other) {};
+            GyroEvent(double x, double y, double z) : Vector3f(x, y, z) {};
     };
 
     class Gyro : public Sensor {
